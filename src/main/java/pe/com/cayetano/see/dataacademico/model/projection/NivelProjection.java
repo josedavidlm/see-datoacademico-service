@@ -3,10 +3,10 @@ package pe.com.cayetano.see.dataacademico.model.projection;
 
 import java.util.Date;
 
-public interface BimestreProjection {
+public interface NivelProjection {
    Long getCodEmpresa();
-   Long getCodBimestre();
-   String getDesBimestre();
+   Long getCodNivel();
+   String getDesNivel();
    String getDesCorta();
    Long getCodEst();
    String getEstado();

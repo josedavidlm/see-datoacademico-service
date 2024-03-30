@@ -7,7 +7,7 @@ import pe.com.cayetano.see.dataacademico.model.enums.TypeMessage;
 import java.util.List;
 
 public class ApiException extends RuntimeException {
-  private ErrorGenerico errorGenerico;
+  private final transient ErrorGenerico errorGenerico;
 
   public ApiException(TypeMessage tipoMensaje, String message, HttpStatus status) {
     super(message);
@@ -39,8 +39,5 @@ public class ApiException extends RuntimeException {
     return this.errorGenerico;
   }
 
-  @Generated
-  public void setErrorGenerico(final ErrorGenerico errorGenerico) {
-    this.errorGenerico = errorGenerico;
-  }
+
 }

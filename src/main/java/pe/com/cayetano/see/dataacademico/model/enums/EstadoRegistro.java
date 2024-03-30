@@ -3,7 +3,7 @@ package pe.com.cayetano.see.dataacademico.model.enums;
 public enum EstadoRegistro {
 
 
-    ACTIVO(1L),
+    REGISTRADO(1L),
     ENUSO(2l),
     ANULADO(3L);
 

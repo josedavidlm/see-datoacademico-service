@@ -1,7 +1,4 @@
-package pe.com.cayetano.see.dataacademico.model.request;
-
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
+package pe.com.cayetano.see.dataacademico.model.response;
 
 
 import lombok.Getter;
@@ -11,38 +8,24 @@ import java.time.LocalDateTime;
 
 @Getter
 @Setter
-public class BimestreRequest {
+public class NivelResponse {
+
   private Long codEmpresa;
-  @JsonIgnore
-  private Long codBimestre;
-  private String desBimestre;
+  private Long codNivel;
+  private String desNivel;
   private String desCorta;
-  @JsonIgnore
   private Boolean activo;
-  @JsonIgnore
+  private String desActivo;
   private Long codEst;
-  @JsonIgnore
+  private String estado;
   private LocalDateTime fecCreacion;
-  @JsonIgnore
   private Long codUsuarioCreacion;
-  @JsonIgnore
   private  String nomTerCreacion;
-  @JsonIgnore
   private LocalDateTime fecModificacion;
-  @JsonIgnore
   private Long codUsuarioModificacion;
-  @JsonIgnore
   private  String nomTerModificacion;
-  @JsonIgnore
   private LocalDateTime fecEliminacion;
-  @JsonIgnore
   private Long codUsuarioEliminacion;
-  @JsonIgnore
   private  String nomTerEliminacion;
-  @JsonIgnore
-  private String fecCreacionCadena;
-  @JsonIgnore
-  private Integer page;
-  @JsonIgnore
-  private Integer pageSize;
+
 }

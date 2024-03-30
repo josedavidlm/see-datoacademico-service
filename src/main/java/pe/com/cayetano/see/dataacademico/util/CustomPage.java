@@ -41,30 +41,30 @@ public class CustomPage<T> {
   public boolean equals(final Object o) {
     if (o == this) {
       return true;
-    } else if (!(o instanceof CustomPage)) {
+    } else if (!(o instanceof CustomPage )) {
       return false;
     } else {
       CustomPage<?> other = (CustomPage)o;
       if (!other.canEqual(this)) {
         return false;
       } else {
-        Object this$data = this.getData();
-        Object other$data = other.getData();
-        if (this$data == null) {
-          if (other$data != null) {
+        Object thisdata = this.getData();
+        Object otherdata = other.getData();
+        if (thisdata == null) {
+          if (otherdata != null) {
             return false;
           }
-        } else if (!this$data.equals(other$data)) {
+        } else if (!thisdata.equals(otherdata)) {
           return false;
         }
 
-        Object this$pageable = this.getPageable();
-        Object other$pageable = other.getPageable();
-        if (this$pageable == null) {
-          if (other$pageable != null) {
+        Object thispageable = this.getPageable();
+        Object otherpageable = other.getPageable();
+        if (thispageable == null) {
+          if (otherpageable != null) {
             return false;
           }
-        } else if (!this$pageable.equals(other$pageable)) {
+        } else if (!thispageable.equals(otherpageable)) {
           return false;
         }
 
@@ -80,18 +80,17 @@ public class CustomPage<T> {
 
   @Generated
   public int hashCode() {
-    boolean PRIME = true;
     int result = 1;
-    Object $data = this.getData();
-    result = result * 59 + ($data == null ? 43 : $data.hashCode());
-    Object $pageable = this.getPageable();
-    result = result * 59 + ($pageable == null ? 43 : $pageable.hashCode());
+    Object thisdata = this.getData();
+    result = result * 59 + (thisdata == null ? 43 : thisdata.hashCode());
+    Object pageables = this.getPageable();
+    result = result * 59 + (pageables == null ? 43 : pageables.hashCode());
     return result;
   }
 
   @Generated
   public String toString() {
-    List var10000 = this.getData();
+    var var10000 = this.getData();
     return "CustomPage(data=" + var10000 + ", pageable=" + this.getPageable() + ")";
   }
 
@@ -139,14 +138,18 @@ public class CustomPage<T> {
       this.totalElements = totalElements;
     }
 
+    @Override
     @Generated
-    public boolean equals(final Object o) {
-      if (o == this) {
+    public boolean equals(Object obj) {
+
+      if (obj == null || this.getClass() != obj.getClass()) {
+        return false;
+      }
+
+      if (obj == this) {
         return true;
-      /*} else if (!(o instanceof CustomPageable)) {
-        return false;*/
       } else {
-        CustomPage<?>.CustomPageable other = (CustomPageable)o;
+        CustomPage<?>.CustomPageable other = (CustomPageable)obj;
         if (!other.canEqual(this)) {
           return false;
         } else if (this.getPageNumber() != other.getPageNumber()) {
@@ -161,17 +164,16 @@ public class CustomPage<T> {
 
     @Generated
     protected boolean canEqual(final Object other) {
-      return false;//  other instanceof CustomPageable;
+      return other instanceof CustomPage;
     }
 
     @Generated
     public int hashCode() {
-      boolean PRIME = true;
       int result = 1;
       result = result * 59 + this.getPageNumber();
       result = result * 59 + this.getPageSize();
-      long $totalElements = this.getTotalElements();
-      result = result * 59 + (int)($totalElements >>> 32 ^ $totalElements);
+      long totalElementos = this.getTotalElements();
+      result = result * 59 + (int)(totalElementos >>> 32 ^ totalElementos);
       return result;
     }
 

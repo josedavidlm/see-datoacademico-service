@@ -2,68 +2,77 @@ package pe.com.cayetano.see.dataacademico.model.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.MappedSuperclass;
-import lombok.Generated;
+import lombok.*;
+import org.springframework.data.annotation.CreatedBy;
+import org.springframework.data.annotation.CreatedDate;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
 @MappedSuperclass
-public class AuditoriaEntidadEntity {
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter
+@Setter
+public class AuditoriaEntidadEntity implements Serializable {
 
+  static final long serialVersionUID = -3281394734739387884L;
+  @Column(
+          name = "codusuariocreacion",
+          updatable = false
+  )
+  @CreatedBy
+  private Long codUsuarioCreacion;
 
   @Column(
-      name = "codusuario"
+      name = "feccreacion",
+          updatable = false
   )
-  private Long codUsuario;
+  @CreatedDate
+  private LocalDateTime fecCreacion;
 
   @Column(
-      name = "fecact"
+      name = "nomtercreacion",
+          updatable = false
   )
-  private LocalDateTime fecAct;
+  @CreatedBy
+  private  String nomTerCreacion;
 
   @Column(
-      name = "nomter"
+          name = "codusuariomodificacion"
   )
-  private  String nomTer;
+  @CreatedBy
+  private Long codUsuarioModificacion;
 
+  @Column(
+          name = "fecmodificacion"
+  )
+  @CreatedDate
+  private LocalDateTime fecModificacion;
 
-  @Generated
-  public Long getCodUsuario() {
-    return this.codUsuario;
-  }
+  @Column(
+          name = "nomtermodificacion"
+  )
+  @CreatedBy
+  private  String nomTerModificacion;
 
-  @Generated
-  public void setCodUsuario(final Long codUsuario) {
-    this.codUsuario = codUsuario;
-  }
+  @Column(
+          name = "codusuarioeliminacion"
+  )
+  @CreatedBy
+  private Long codUsuarioEliminacion;
 
-  @Generated
-  public LocalDateTime getFecAct() {
-    return this.fecAct;
-  }
+  @Column(
+          name = "feceliminacion"
+  )
+  @CreatedDate
+  private LocalDateTime fecEliminacion;
 
-  @Generated
-  public void setFecAct(final LocalDateTime fecAct) {
-    this.fecAct = fecAct;
-  }
+  @Column(
+          name = "nomtereliminacion"
+  )
+  @CreatedBy
+  private  String nomTerEliminacion;
 
-  @Generated
-  public String getNomTer() {
-    return this.nomTer;
-  }
-
-  @Generated
-  public void setNomTer(final String nomTer) {
-    this.nomTer = nomTer;
-  }
-
-  @Generated
-  public AuditoriaEntidadEntity(final Long codUsuario, LocalDateTime fecAct,final String nomTer) {
-    this.codUsuario = codUsuario;
-    this.fecAct = fecAct;
-    this.nomTer = nomTer;
-  }
-  @Generated
-  public AuditoriaEntidadEntity() {
-  }
 
 }

@@ -5,10 +5,13 @@ import lombok.Generated;
 import org.springframework.http.HttpStatus;
 import pe.com.cayetano.see.dataacademico.model.enums.TypeMessage;
 
+import java.io.Serializable;
 import java.util.Collections;
 import java.util.List;
 
-public class ErrorGenerico {
+public class ErrorGenerico implements Serializable {
+
+  private static final long serialVersionUID = 2405172041950251807L;
   private Integer tipMen;
   private String mensaje;
   private String codigo;

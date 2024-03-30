@@ -2,8 +2,6 @@ package pe.com.cayetano.see.dataacademico.model.request;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-
-
 import lombok.Getter;
 import lombok.Setter;
 
@@ -11,11 +9,11 @@ import java.time.LocalDateTime;
 
 @Getter
 @Setter
-public class BimestreRequest {
+public class NivelRequest {
   private Long codEmpresa;
   @JsonIgnore
-  private Long codBimestre;
-  private String desBimestre;
+  private Long codNivel;
+  private String desNivel;
   private String desCorta;
   @JsonIgnore
   private Boolean activo;

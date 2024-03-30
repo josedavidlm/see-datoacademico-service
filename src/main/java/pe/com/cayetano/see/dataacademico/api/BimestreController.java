@@ -5,16 +5,15 @@ package pe.com.cayetano.see.dataacademico.api;
 import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
-import pe.com.cayetano.see.dataacademico.model.Response.ResponseBase;
-import pe.com.cayetano.see.dataacademico.model.Response.ResponseBasePage;
+import pe.com.cayetano.see.dataacademico.api.constant.Constantes;
+import pe.com.cayetano.see.dataacademico.model.response.ResponseBase;
+import pe.com.cayetano.see.dataacademico.model.response.ResponseBasePage;
 import pe.com.cayetano.see.dataacademico.model.id.BimestreId;
-import pe.com.cayetano.see.dataacademico.model.projection.BimestreProjection;
 import pe.com.cayetano.see.dataacademico.model.request.BimestreListRequest;
 import pe.com.cayetano.see.dataacademico.model.request.BimestreRequest;
 import pe.com.cayetano.see.dataacademico.service.BimestreService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import pe.com.cayetano.see.dataacademico.util.CustomPage;
 
 @RestController
 @RequestMapping("bimestre")
@@ -22,45 +21,62 @@ public class BimestreController {
     @Autowired
     private BimestreService bimestreService;
 
-    @PostMapping(value ="save", produces = MediaType.APPLICATION_JSON_VALUE)
+
+
+    @PostMapping(value ="save-bimestre", produces = MediaType.APPLICATION_JSON_VALUE)
+    @Operation(summary = "registrar Bimestre",
+            description = "registrar Bimestre")
     public ResponseBase create(@RequestBody BimestreRequest bimestre)
     {
-        bimestre.setCodUsuario(1L);
-        bimestre.setNomTer("192.168.1.1");
+        bimestre.setCodUsuarioCreacion(1L);
+        bimestre.setNomTerCreacion(Constantes.IP_TERMINAL);
         return bimestreService.create(bimestre);
     }
 
-    @PutMapping(value ="/update/{empresa_Id}/{bimestre_Id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseBase update(@PathVariable("empresa_Id") Long empresaId,@PathVariable("bimestre_Id") Long bimestreId,@RequestBody BimestreRequest bimestre)
+    @PutMapping(value ="/update-bimestre/{bimestre_Id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @Operation(summary = "actualización de Bimestre",
+            description = "actualización de Bimestre")
+    public ResponseBase update(@PathVariable("bimestre_Id") Long bimestreId,@RequestBody BimestreRequest bimestre)
     {
-        bimestre.setCodUsuario(1L);
-        bimestre.setNomTer("192.168.1.1");
-        bimestre.setCodEmpresa(empresaId);
+        bimestre.setCodUsuarioModificacion(1L);
+        bimestre.setNomTerModificacion(Constantes.IP_TERMINAL);
         bimestre.setCodBimestre(bimestreId);
         return bimestreService.update(bimestre);
     }
-    @DeleteMapping(value ="/delete/{empresa_Id}/{bimestre_Id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @DeleteMapping(value ="/delete-bimestre/{empresa_Id}/{bimestre_Id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @Operation(summary = "eliminación lógica de Bimestre",
+            description = "eliminación lógica de Bimestre")
     public ResponseBase delete(@PathVariable("empresa_Id") Long empresaId,@PathVariable("bimestre_Id") Long bimestreId)
     {
-        return bimestreService.deleteById(new BimestreId(empresaId,bimestreId));
+        BimestreRequest bimestre = new BimestreRequest();
+        bimestre.setCodEmpresa(empresaId);
+        bimestre.setCodBimestre(bimestreId);
+        bimestre.setCodUsuarioEliminacion(1L);
+        bimestre.setNomTerEliminacion(Constantes.IP_TERMINAL);
+        return bimestreService.deleteById(bimestre);
     }
-    @GetMapping(value ="/get/{empresa_Id}/{bimestre_Id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value ="/get-bimestre/{empresa_Id}/{bimestre_Id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @Operation(summary = "obtener Bimestre Id",
+            description = "obtener Bimestre Id")
     public ResponseBase buscarPorId(@PathVariable("empresa_Id") Long empresaId, @PathVariable("bimestre_Id") Long bimestreId)
     {
 
         return bimestreService.findById(new BimestreId(empresaId,bimestreId));
     }
-    @GetMapping(value ="/list", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value ="/list-bimestre", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseStatus(HttpStatus.OK)
+    @Operation(summary = "Lista de Bimestre",
+            description = "Lista de Bimestre")
     public ResponseBase listar()
     {
         return bimestreService.findAll();
     }
 
 
-    @GetMapping(value = "listar", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "to-list-bimestre", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.OK)
-    @Operation(summary = "Listar Bimestre",
-        description = "Listar Bimestre")
+    @Operation(summary = "Lista paginable Bimestre",
+        description = "Lista paginable Bimestre")
     public ResponseBasePage listarBimestre (
         @RequestParam(name="empresa_Id", required = false) Long empresaId,
         @RequestParam(name="bimestre_Id", required = false) Long bimestreId,
