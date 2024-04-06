@@ -91,9 +91,9 @@ public class BimestreServiceImpl implements BimestreService {
     public ResponseBase findById(BimestreId bimestreId) {
 
         var lstResponse = new ArrayList<BimestreResponse>();
-        Optional<BimestreEntity> empresaBd = bimestreRepository.findById(bimestreId);
+        Optional<BimestreEntity> bimestreBd = bimestreRepository.findById(bimestreId);
 
-        var obj = modelMapper.map(empresaBd, BimestreResponse.class);
+        var obj = modelMapper.map(bimestreBd, BimestreResponse.class);
 
         var estado = obj.getActivo();
 
@@ -113,7 +113,7 @@ public class BimestreServiceImpl implements BimestreService {
 
         lstResponse.add(obj);
 
-        if(empresaBd.isPresent())
+        if(bimestreBd.isPresent())
         {
             return new ResponseBase(Constantes.API_STATUS_200, config.getMessage(Constantes.ENCONTRADO), true, lstResponse);
         }
