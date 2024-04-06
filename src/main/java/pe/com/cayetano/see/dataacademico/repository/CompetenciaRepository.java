@@ -30,8 +30,7 @@ public interface CompetenciaRepository extends JpaRepository<CompetenciaEntity, 
   String QUERY_TABLA = """
   WHERE codempresa = :#{#rq.codempresa}
         AND (CAST(:#{#rq.codCompetencia}  AS INTEGER) IS NULL OR codCompetencia = :#{#rq.codCompetencia})
-        AND (CAST(:#{#rq.desCompetencia} AS TEXT) IS NULL OR desCompetencia LIKE '%'||:#{#rq.desCompetencia}||'%')
-        AND (CAST(:#{#rq.descorta} AS TEXT) IS NULL OR descorta LIKE '%'||:#{#rq.descorta}||'%' )
+        AND (CAST(:#{#rq.desCompetencia} AS TEXT) IS NULL OR desCompetencia LIKE '%'||:#{#rq.desCompetencia}||'%')        
         AND (CAST(:#{#rq.codest}  AS INTEGER) IS NULL OR codest = :#{#rq.codest})
   """;
   @Query(value = """

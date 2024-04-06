@@ -80,7 +80,6 @@ public class CompetenciaController {
         @RequestParam(name="empresa_Id", required = false) Long empresaId,
         @RequestParam(name="competencia_Id", required = false) Long bimestreId,
         @RequestParam(name="descripcion", required = false) String descripcion,
-        @RequestParam(name="desCorta", required = false) String desCorta,
         @RequestParam(name="fecCreacion", required = false) String fecCreacion,
         @RequestParam(name="codEstado", required = false) Long codEstado,
         @RequestParam(name="page", defaultValue = "1") Integer page,
@@ -88,10 +87,9 @@ public class CompetenciaController {
     ) {
         var request = new CompetenciaListRequest();
         request.setCodempresa(empresaId);
-        request.setCodcompetencia(bimestreId);
-        request.setDescompetencia(descripcion);
-        request.setDescorta(desCorta);
-        request.setFeccreacioncadena(fecCreacion);
+        request.setCodCompetencia(bimestreId);
+        request.setDesCompetencia(descripcion);
+        request.setFecCreacion(fecCreacion);
         request.setCodest(codEstado);
         request.setPage(page);
         request.setPageSize(pageSize);

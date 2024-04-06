@@ -7,7 +7,6 @@ public interface CompetenciaProjection {
    Long getCodEmpresa();
    Long getCodCompetencia();
    String getDesCompetencia();
-   String getDesCorta();
    Long getCodEst();
    String getEstado();
    Boolean getActivo();

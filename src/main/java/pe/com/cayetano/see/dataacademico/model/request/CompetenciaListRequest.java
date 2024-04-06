@@ -15,10 +15,9 @@ import lombok.Setter;
 public class CompetenciaListRequest {
 
   private Long codempresa;
-  private Long codcompetencia;
-  private String descompetencia;
-  private String descorta;
-  private String feccreacioncadena;
+  private Long codCompetencia;
+  private String desCompetencia;
+  private String fecCreacion;
   private Long codest;
   private Integer page;
   private Integer pageSize;
