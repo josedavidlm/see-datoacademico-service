@@ -8,17 +8,17 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import pe.com.cayetano.see.dataacademico.api.constant.Constantes;
 import pe.com.cayetano.see.dataacademico.config.ConfigMessageProperty;
-import pe.com.cayetano.see.dataacademico.model.entity.SeccionEntity;
+import pe.com.cayetano.see.dataacademico.model.entity.CompetenciaEntity;
 import pe.com.cayetano.see.dataacademico.model.enums.Estado;
 import pe.com.cayetano.see.dataacademico.model.enums.EstadoRegistro;
-import pe.com.cayetano.see.dataacademico.model.id.SeccionId;
-import pe.com.cayetano.see.dataacademico.model.request.SeccionListRequest;
-import pe.com.cayetano.see.dataacademico.model.request.SeccionRequest;
-import pe.com.cayetano.see.dataacademico.model.response.SeccionResponse;
+import pe.com.cayetano.see.dataacademico.model.id.CompetenciaId;
+import pe.com.cayetano.see.dataacademico.model.request.CompetenciaListRequest;
+import pe.com.cayetano.see.dataacademico.model.request.CompetenciaRequest;
+import pe.com.cayetano.see.dataacademico.model.response.CompetenciaResponse;
 import pe.com.cayetano.see.dataacademico.model.response.ResponseBase;
 import pe.com.cayetano.see.dataacademico.model.response.ResponseBasePage;
-import pe.com.cayetano.see.dataacademico.repository.SeccionRepository;
-import pe.com.cayetano.see.dataacademico.service.SeccionService;
+import pe.com.cayetano.see.dataacademico.repository.CompetenciaRepository;
+import pe.com.cayetano.see.dataacademico.service.CompetenciaService;
 import pe.com.cayetano.see.dataacademico.util.CustomPage;
 
 import java.time.LocalDateTime;
@@ -28,9 +28,9 @@ import java.util.Optional;
 
 
 @Service
-public class SeccionServiceImpl implements SeccionService {
+public class CompetenciaServiceImpl implements CompetenciaService {
     @Autowired
-    private SeccionRepository seccionRepository;
+    private CompetenciaRepository competenciaRepository;
 
     @Autowired
     private ModelMapper modelMapper;
@@ -40,28 +40,28 @@ public class SeccionServiceImpl implements SeccionService {
 
     @Transactional
     @Override
-    public ResponseBase create(SeccionRequest seccion) {
-        var lstResponse = new ArrayList<SeccionResponse>();
-        Optional<SeccionEntity> seccionBd = seccionRepository.findByDesSeccion(seccion.getDesSeccion());
+    public ResponseBase create(CompetenciaRequest competencia) {
+        var lstResponse = new ArrayList<CompetenciaResponse>();
+        Optional<CompetenciaEntity> competenciaBd = competenciaRepository.findByDesCompetencia(competencia.getDesCompetencia());
 
 
-        if(seccionBd.isPresent())
+        if(competenciaBd.isPresent())
         {
-            lstResponse.add(modelMapper.map(seccionBd.get(), SeccionResponse.class));
+            lstResponse.add(modelMapper.map(competenciaBd.get(), CompetenciaResponse.class));
             return new ResponseBase(Constantes.API_STATUS_400,
                 config.getMessage(Constantes.EXISTE),
                 false,
                 lstResponse);
         }
-        SeccionEntity entidad = modelMapper.map(seccion, SeccionEntity.class);
-        entidad.setCodEmpresa(seccion.getCodEmpresa());
-        entidad.setCodSeccion(seccionRepository.obtenerSeccionId(seccion.getCodEmpresa()));
+        CompetenciaEntity entidad = modelMapper.map(competencia, CompetenciaEntity.class);
+        entidad.setCodEmpresa(competencia.getCodEmpresa());
+        entidad.setCodCompetencia(competenciaRepository.obtenerCompetenciaId(competencia.getCodEmpresa()));
         entidad.setFecCreacion(LocalDateTime.now());
         entidad.setActivo(true);
         entidad.setCodEst(EstadoRegistro.REGISTRADO.getValue());
-        SeccionEntity seccionGuardado = seccionRepository.save(entidad);
+        CompetenciaEntity competenciaGuardado = competenciaRepository.save(entidad);
 
-        var obj = modelMapper.map(seccionGuardado, SeccionResponse.class);
+        var obj = modelMapper.map(competenciaGuardado, CompetenciaResponse.class);
 
         var estado = obj.getActivo();
 
@@ -88,12 +88,12 @@ public class SeccionServiceImpl implements SeccionService {
     }
 
     @Override
-    public ResponseBase findById(SeccionId seccionId) {
+    public ResponseBase findById(CompetenciaId competenciaId) {
 
-        var lstResponse = new ArrayList<SeccionResponse>();
-        Optional<SeccionEntity> seccionBD = seccionRepository.findById(seccionId);
+        var lstResponse = new ArrayList<CompetenciaResponse>();
+        Optional<CompetenciaEntity> competenciaBD = competenciaRepository.findById(competenciaId);
 
-        var obj = modelMapper.map(seccionBD, SeccionResponse.class);
+        var obj = modelMapper.map(competenciaBD, CompetenciaResponse.class);
 
         var estado = obj.getActivo();
 
@@ -113,7 +113,7 @@ public class SeccionServiceImpl implements SeccionService {
 
         lstResponse.add(obj);
 
-        if(seccionBD.isPresent())
+        if(competenciaBD.isPresent())
         {
             return new ResponseBase(Constantes.API_STATUS_200, config.getMessage(Constantes.ENCONTRADO), true, lstResponse);
         }
@@ -122,23 +122,23 @@ public class SeccionServiceImpl implements SeccionService {
 
     @Transactional
     @Override
-    public ResponseBase deleteById(SeccionRequest seccion) {
-        var lstResponse = new ArrayList<SeccionResponse>();
-        SeccionId seccionId = new SeccionId();
-        seccionId.setCodEmpresa(seccion.getCodEmpresa());
-        seccionId.setCodSeccion(seccion.getCodSeccion());
+    public ResponseBase deleteById(CompetenciaRequest competencia) {
+        var lstResponse = new ArrayList<CompetenciaResponse>();
+        CompetenciaId competenciaId = new CompetenciaId();
+        competenciaId.setCodEmpresa(competencia.getCodEmpresa());
+        competenciaId.setCodCompetencia(competencia.getCodCompetencia());
 
-        Optional<SeccionEntity> seccionBD = seccionRepository.findById(seccionId);
+        Optional<CompetenciaEntity> competenciaBD = competenciaRepository.findById(competenciaId);
 
-        if (seccionBD.isPresent()){
+        if (competenciaBD.isPresent()){
 
-            seccionBD.get().setActivo(false);
-            seccionBD.get().setCodUsuarioEliminacion(seccion.getCodUsuarioEliminacion());
-            seccionBD.get().setFecEliminacion(LocalDateTime.now());
-            seccionBD.get().setNomTerEliminacion(seccion.getNomTerEliminacion());
+            competenciaBD.get().setActivo(false);
+            competenciaBD.get().setCodUsuarioEliminacion(competencia.getCodUsuarioEliminacion());
+            competenciaBD.get().setFecEliminacion(LocalDateTime.now());
+            competenciaBD.get().setNomTerEliminacion(competencia.getNomTerEliminacion());
 
-            SeccionEntity seccionDelete = seccionRepository.save(seccionBD.get());
-            var obj = modelMapper.map(seccionDelete, SeccionResponse.class);
+            CompetenciaEntity competenciaDelete = competenciaRepository.save(competenciaBD.get());
+            var obj = modelMapper.map(competenciaDelete, CompetenciaResponse.class);
 
             var estado = obj.getActivo();
 
@@ -163,12 +163,12 @@ public class SeccionServiceImpl implements SeccionService {
 
     @Transactional
     @Override
-    public ResponseBase update(SeccionRequest seccion) {
-        Optional<SeccionEntity> seccionBd = seccionRepository.findById(new SeccionId(seccion.getCodEmpresa(),seccion.getCodSeccion()) );
+    public ResponseBase update(CompetenciaRequest competencia) {
+        Optional<CompetenciaEntity> competenciaBd = competenciaRepository.findById(new CompetenciaId(competencia.getCodEmpresa(),competencia.getCodCompetencia()) );
 
-        var lstResponse = new ArrayList<SeccionResponse>();
+        var lstResponse = new ArrayList<CompetenciaResponse>();
 
-        if(seccionBd.isEmpty())
+        if(competenciaBd.isEmpty())
         {
             return new ResponseBase(Constantes.API_STATUS_404,
                 config.getMessage(Constantes.NO_REGISTRO),
@@ -177,15 +177,15 @@ public class SeccionServiceImpl implements SeccionService {
         }
 
 
-        SeccionEntity entidad = modelMapper.map(seccionBd.get(), SeccionEntity.class);
-        entidad.setDesSeccion(seccion.getDesSeccion());
-        entidad.setDesCorta(seccion.getDesCorta());
+        CompetenciaEntity entidad = modelMapper.map(competenciaBd.get(), CompetenciaEntity.class);
+        entidad.setDesCompetencia(competencia.getDesCompetencia());
+        entidad.setDesCorta(competencia.getDesCorta());
         entidad.setFecModificacion(LocalDateTime.now());
-        entidad.setCodUsuarioModificacion(seccion.getCodUsuarioModificacion());
-        entidad.setNomTerModificacion(seccion.getNomTerModificacion());
-        SeccionEntity seccionGuardado = seccionRepository.save(entidad);
+        entidad.setCodUsuarioModificacion(competencia.getCodUsuarioModificacion());
+        entidad.setNomTerModificacion(competencia.getNomTerModificacion());
+        CompetenciaEntity competenciaGuardado = competenciaRepository.save(entidad);
 
-        var obj = modelMapper.map(seccionGuardado, SeccionResponse.class);
+        var obj = modelMapper.map(competenciaGuardado, CompetenciaResponse.class);
 
         var estado = obj.getActivo();
 
@@ -213,12 +213,12 @@ public class SeccionServiceImpl implements SeccionService {
 
     @Override
     public ResponseBase findAll() {
-        List<SeccionEntity> lista = seccionRepository.findAll();
+        List<CompetenciaEntity> lista = competenciaRepository.findAll();
 
-        var lstResponse = new ArrayList<SeccionResponse>();
+        var lstResponse = new ArrayList<CompetenciaResponse>();
 
         lista.forEach(entidad -> {
-            var obj = modelMapper.map(entidad, SeccionResponse.class);
+            var obj = modelMapper.map(entidad, CompetenciaResponse.class);
             if (entidad.getCodEmpresa() != null) {
 
                 var estadoEntidad = entidad.getActivo();
@@ -248,15 +248,13 @@ public class SeccionServiceImpl implements SeccionService {
     }
 
     @Override
-    public ResponseBasePage listarSeccion(SeccionListRequest request) {
+    public ResponseBasePage listarCompetencia(CompetenciaListRequest request) {
         Pageable pageable = PageRequest.of(request.getPage() - 1, request.getPageSize());
-        var response =  new CustomPage(seccionRepository.listarSeccion(request, pageable));
+        var response =  new CustomPage(competenciaRepository.listarCompetencia(request, pageable));
         if (response.getData().isEmpty()) {
             return new ResponseBasePage(Constantes.API_STATUS_404, config.getMessage(Constantes.NO_REGISTRO), false, response);
         }
         return new ResponseBasePage(Constantes.API_STATUS_200,  config.getMessage(Constantes.LISTA_ENCONTRADO) , true, response);
 
     }
-
-
 }

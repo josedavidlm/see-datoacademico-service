@@ -12,11 +12,11 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class SeccionListRequest {
+public class CompetenciaListRequest {
 
   private Long codempresa;
-  private Long codSeccion;
-  private String desSeccion;
+  private Long codcompetencia;
+  private String descompetencia;
   private String descorta;
   private String feccreacioncadena;
   private Long codest;

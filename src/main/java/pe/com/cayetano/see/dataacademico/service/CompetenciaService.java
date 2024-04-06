@@ -1,18 +1,19 @@
 package pe.com.cayetano.see.dataacademico.service;
 
 
-import pe.com.cayetano.see.dataacademico.model.id.NivelId;
-import pe.com.cayetano.see.dataacademico.model.request.NivelListRequest;
-import pe.com.cayetano.see.dataacademico.model.request.NivelRequest;
+
+import pe.com.cayetano.see.dataacademico.model.id.CompetenciaId;
+import pe.com.cayetano.see.dataacademico.model.request.CompetenciaListRequest;
+import pe.com.cayetano.see.dataacademico.model.request.CompetenciaRequest;
 import pe.com.cayetano.see.dataacademico.model.response.ResponseBase;
 import pe.com.cayetano.see.dataacademico.model.response.ResponseBasePage;
 
-public interface NivelService {
+public interface CompetenciaService {
 
-  ResponseBase create(NivelRequest nivel);
-  ResponseBase findById(NivelId nivelId);
-  ResponseBase deleteById(NivelRequest nivel);
-  ResponseBase update(NivelRequest nivel);
+  ResponseBase create(CompetenciaRequest competencia);
+  ResponseBase findById(CompetenciaId competenciaId);
+  ResponseBase deleteById(CompetenciaRequest competencia);
+  ResponseBase update(CompetenciaRequest competencia);
   ResponseBase findAll();
-  ResponseBasePage listarNivel(NivelListRequest request);
+  ResponseBasePage listarCompetencia(CompetenciaListRequest request);
 }

@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class SeccionId {
+public class CompetenciaId {
   private Long codEmpresa;
-  private Long codSeccion;
+  private Long codCompetencia;
 }

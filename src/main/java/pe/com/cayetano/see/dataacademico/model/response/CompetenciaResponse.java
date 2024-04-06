@@ -8,11 +8,11 @@ import java.time.LocalDateTime;
 
 @Getter
 @Setter
-public class NivelResponse {
+public class CompetenciaResponse {
 
   private Long codEmpresa;
-  private Long codNivel;
-  private String desNivel;
+  private Long codCompetencia;
+  private String desCompetencia;
   private String desCorta;
   private Boolean activo;
   private String desActivo;

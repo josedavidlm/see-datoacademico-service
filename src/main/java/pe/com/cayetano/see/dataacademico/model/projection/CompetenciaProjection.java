@@ -3,10 +3,10 @@ package pe.com.cayetano.see.dataacademico.model.projection;
 
 import java.util.Date;
 
-public interface SeccionProjection {
+public interface CompetenciaProjection {
    Long getCodEmpresa();
-   Long getCodSeccion();
-   String getDesSeccion();
+   Long getCodCompetencia();
+   String getDesCompetencia();
    String getDesCorta();
    Long getCodEst();
    String getEstado();

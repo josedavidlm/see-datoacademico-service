@@ -9,11 +9,11 @@ import java.time.LocalDateTime;
 
 @Getter
 @Setter
-public class SeccionRequest {
+public class CompetenciaRequest {
   private Long codEmpresa;
   @JsonIgnore
-  private Long codSeccion;
-  private String desSeccion;
+  private Long codCompetencia;
+  private String desCompetencia;
   private String desCorta;
   @JsonIgnore
   private Boolean activo;

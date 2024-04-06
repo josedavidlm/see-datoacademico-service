@@ -7,77 +7,78 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import pe.com.cayetano.see.dataacademico.api.constant.Constantes;
-import pe.com.cayetano.see.dataacademico.model.id.NivelId;
-import pe.com.cayetano.see.dataacademico.model.request.NivelListRequest;
-import pe.com.cayetano.see.dataacademico.model.request.NivelRequest;
+import pe.com.cayetano.see.dataacademico.model.id.CompetenciaId;
+import pe.com.cayetano.see.dataacademico.model.request.CompetenciaListRequest;
+import pe.com.cayetano.see.dataacademico.model.request.CompetenciaRequest;
 import pe.com.cayetano.see.dataacademico.model.response.ResponseBase;
 import pe.com.cayetano.see.dataacademico.model.response.ResponseBasePage;
-import pe.com.cayetano.see.dataacademico.service.NivelService;
+import pe.com.cayetano.see.dataacademico.service.CompetenciaService;
+
 
 @RestController
-@RequestMapping("nivel")
-public class NivelController {
+@RequestMapping("competencia")
+public class CompetenciaController {
     @Autowired
-    private NivelService nivelService;
+    private CompetenciaService competenciaService;
 
 
 
-    @PostMapping(value ="save-nivel", produces = MediaType.APPLICATION_JSON_VALUE)
-    @Operation(summary = "registrar nivel",
-            description = "registrar nivel")
-    public ResponseBase create(@RequestBody NivelRequest nivel)
+    @PostMapping(value ="save-competencia", produces = MediaType.APPLICATION_JSON_VALUE)
+    @Operation(summary = "registrar competencia",
+            description = "registrar competencia")
+    public ResponseBase create(@RequestBody CompetenciaRequest competencia)
     {
-        nivel.setCodUsuarioCreacion(1L);
-        nivel.setNomTerCreacion(Constantes.IP_TERMINAL);
-        return nivelService.create(nivel);
+        competencia.setCodUsuarioCreacion(1L);
+        competencia.setNomTerCreacion(Constantes.IP_TERMINAL);
+        return competenciaService.create(competencia);
     }
 
-    @PutMapping(value ="/update-nivel/{nivel_Id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    @Operation(summary = "actualización de nivel",
-            description = "actualización de nivel")
-    public ResponseBase update(@PathVariable("nivel_Id") Long nivelId,@RequestBody NivelRequest nivel)
+    @PutMapping(value ="/update-competencia/{competencia_Id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @Operation(summary = "actualización de competencia",
+            description = "actualización de competencia")
+    public ResponseBase update(@PathVariable("competencia_Id") Long competenciaId,@RequestBody CompetenciaRequest competencia)
     {
-        nivel.setCodUsuarioModificacion(1L);
-        nivel.setNomTerModificacion(Constantes.IP_TERMINAL);
-        nivel.setCodNivel(nivelId);
-        return nivelService.update(nivel);
+        competencia.setCodUsuarioModificacion(1L);
+        competencia.setNomTerModificacion(Constantes.IP_TERMINAL);
+        competencia.setCodCompetencia(competenciaId);
+        return competenciaService.update(competencia);
     }
-    @DeleteMapping(value ="/delete-nivel/{empresa_Id}/{nivel_Id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    @Operation(summary = "eliminación lógica de nivel",
-            description = "eliminación lógica de nivel")
-    public ResponseBase delete(@PathVariable("empresa_Id") Long empresaId,@PathVariable("nivel_Id") Long nivelId)
+    @DeleteMapping(value ="/delete-competencia/{empresa_Id}/{competencia_Id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @Operation(summary = "eliminación lógica de competencia",
+            description = "eliminación lógica de competencia")
+    public ResponseBase delete(@PathVariable("empresa_Id") Long empresaId,@PathVariable("competencia_Id") Long competenciaId)
     {
-        NivelRequest nivel = new NivelRequest();
-        nivel.setCodEmpresa(empresaId);
-        nivel.setCodNivel(nivelId);
-        nivel.setCodUsuarioEliminacion(1L);
-        nivel.setNomTerEliminacion(Constantes.IP_TERMINAL);
-        return nivelService.deleteById(nivel);
+        CompetenciaRequest competencia = new CompetenciaRequest();
+        competencia.setCodEmpresa(empresaId);
+        competencia.setCodCompetencia(competenciaId);
+        competencia.setCodUsuarioEliminacion(1L);
+        competencia.setNomTerEliminacion(Constantes.IP_TERMINAL);
+        return competenciaService.deleteById(competencia);
     }
-    @GetMapping(value ="/get-nivel/{empresa_Id}/{nivel_Id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    @Operation(summary = "obtener Nivel Id",
-            description = "obtener Nivel Id")
-    public ResponseBase buscarPorId(@PathVariable("empresa_Id") Long empresaId, @PathVariable("nivel_Id") Long nivelId)
+    @GetMapping(value ="/get-competencia/{empresa_Id}/{competencia_Id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @Operation(summary = "obtener competencia Id",
+            description = "obtener competencia Id")
+    public ResponseBase buscarPorId(@PathVariable("empresa_Id") Long empresaId, @PathVariable("competencia_Id") Long competenciaId)
     {
 
-        return nivelService.findById(new NivelId(empresaId,nivelId));
+        return competenciaService.findById(new CompetenciaId(empresaId,competenciaId));
     }
-    @GetMapping(value ="/list-nivel", produces = MediaType.APPLICATION_JSON_VALUE)
-    @Operation(summary = "Lista de Nivel",
-            description = "Lista de Nivel")
+    @GetMapping(value ="/list-competencia", produces = MediaType.APPLICATION_JSON_VALUE)
+    @Operation(summary = "Lista de competencia",
+            description = "Lista de competencia")
     public ResponseBase listar()
     {
-        return nivelService.findAll();
+        return competenciaService.findAll();
     }
 
 
-    @GetMapping(value = "to-list--nivel", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "to-list--competencia", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.OK)
-    @Operation(summary = "Listar Nivel",
-        description = "Listar Nivel")
-    public ResponseBasePage listarNivel (
+    @Operation(summary = "Listar competencia",
+        description = "Listar competencia")
+    public ResponseBasePage listarcompetencia (
         @RequestParam(name="empresa_Id", required = false) Long empresaId,
-        @RequestParam(name="nivel_Id", required = false) Long bimestreId,
+        @RequestParam(name="competencia_Id", required = false) Long bimestreId,
         @RequestParam(name="descripcion", required = false) String descripcion,
         @RequestParam(name="desCorta", required = false) String desCorta,
         @RequestParam(name="fecCreacion", required = false) String fecCreacion,
@@ -85,17 +86,17 @@ public class NivelController {
         @RequestParam(name="page", defaultValue = "1") Integer page,
         @RequestParam(name="page_size", defaultValue = "10") Integer pageSize
     ) {
-        var request = new NivelListRequest();
+        var request = new CompetenciaListRequest();
         request.setCodempresa(empresaId);
-        request.setCodnivel(bimestreId);
-        request.setDesnivel(descripcion);
+        request.setCodcompetencia(bimestreId);
+        request.setDescompetencia(descripcion);
         request.setDescorta(desCorta);
         request.setFeccreacioncadena(fecCreacion);
         request.setCodest(codEstado);
         request.setPage(page);
         request.setPageSize(pageSize);
 
-        return nivelService.listarNivel(request);
+        return competenciaService.listarCompetencia(request);
     }
 
 }

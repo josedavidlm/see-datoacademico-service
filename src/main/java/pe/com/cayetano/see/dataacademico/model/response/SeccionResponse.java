@@ -8,11 +8,11 @@ import java.time.LocalDateTime;
 
 @Getter
 @Setter
-public class CompetenciaResponse {
+public class SeccionResponse {
 
   private Long codEmpresa;
-  private Long codCompetencia;
-  private String desCompetencia;
+  private Long codSeccion;
+  private String desSeccion;
   private String desCorta;
   private Boolean activo;
   private String desActivo;
