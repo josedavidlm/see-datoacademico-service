@@ -179,7 +179,6 @@ public class CompetenciaServiceImpl implements CompetenciaService {
 
         CompetenciaEntity entidad = modelMapper.map(competenciaBd.get(), CompetenciaEntity.class);
         entidad.setDesCompetencia(competencia.getDesCompetencia());
-        entidad.setDesCorta(competencia.getDesCorta());
         entidad.setFecModificacion(LocalDateTime.now());
         entidad.setCodUsuarioModificacion(competencia.getCodUsuarioModificacion());
         entidad.setNomTerModificacion(competencia.getNomTerModificacion());

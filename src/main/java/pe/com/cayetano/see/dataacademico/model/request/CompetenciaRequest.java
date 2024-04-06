@@ -14,7 +14,6 @@ public class CompetenciaRequest {
   @JsonIgnore
   private Long codCompetencia;
   private String desCompetencia;
-  private String desCorta;
   @JsonIgnore
   private Boolean activo;
   @JsonIgnore

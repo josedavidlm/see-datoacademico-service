@@ -26,8 +26,6 @@ public class CompetenciaEntity extends  AuditoriaEntidadEntity implements Serial
   @Column(name = "descompetencia")
   private String desCompetencia;
 
-  @Column(name = "descorta")
-  private String desCorta;
 
   @Column(name = "codest")
   private Long codEst;

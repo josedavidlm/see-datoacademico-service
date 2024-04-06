@@ -13,7 +13,6 @@ public class CompetenciaResponse {
   private Long codEmpresa;
   private Long codCompetencia;
   private String desCompetencia;
-  private String desCorta;
   private Boolean activo;
   private String desActivo;
   private Long codEst;
