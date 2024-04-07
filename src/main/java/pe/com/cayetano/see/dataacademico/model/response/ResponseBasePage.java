@@ -15,5 +15,5 @@ public class ResponseBasePage {
   private Integer codigo;
   private String mensaje;
   private Boolean exito;
-  private CustomPage<Object> data;
+  private Object data;
 }

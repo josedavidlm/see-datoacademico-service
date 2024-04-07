@@ -252,9 +252,9 @@ public class BimestreServiceImpl implements BimestreService {
         Pageable pageable = PageRequest.of(request.getPage() - 1, request.getPageSize());
         var response =  new CustomPage(bimestreRepository.listarBimestre(request, pageable));
         if (response.getData().isEmpty()) {
-            return new ResponseBasePage(Constantes.API_STATUS_404, config.getMessage(Constantes.NO_REGISTRO), false, response);
+            return new ResponseBasePage(Constantes.API_STATUS_404, config.getMessage(Constantes.NO_REGISTRO), false, response.getData());
         }
-        return new ResponseBasePage(Constantes.API_STATUS_200,  config.getMessage(Constantes.LISTA_ENCONTRADO) , true, response);
+        return new ResponseBasePage(Constantes.API_STATUS_200,  config.getMessage(Constantes.LISTA_ENCONTRADO) , true, response.getData());
 
     }
 }
